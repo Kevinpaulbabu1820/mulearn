@@ -77,16 +77,14 @@ const NavLinks = ({ closeButton }) => {
             links.map((link) => (
               <div
                 className={`px-7 py-5 text-left flex justify-between items-center }`}
+                onClick={() => {
+                  setVisibility(true);
+                  setCurrent(link);
+                  setPrev(link);
+                }}
               >
                 <h1 className="">{link.name}</h1>
-                <span
-                  className="text-xl flex items-center"
-                  onClick={() => {
-                    setVisibility(true);
-                    setCurrent(link);
-                    setPrev(link);
-                  }}
-                >
+                <span className="text-xl flex items-center">
                   <ion-icon name="chevron-forward-outline" />
                 </span>
               </div>
@@ -115,28 +113,28 @@ const NavLinks = ({ closeButton }) => {
               <div>
                 {currentLink.submenu &&
                   currentLink.sublinks.map((link) => (
-                    <div className="px-7 py-5 text-left flex justify-between items-center">
-                      <h1>{link.name}</h1>
+                    <a href={link.link}>
+                      <div
+                        className="px-7 py-5 text-left flex justify-between items-center"
+                        onClick={() => {
+                          setCurrent(link);
+                          setPrev(currentLink);
+                        }}
+                      >
+                        <h1>{link.name}</h1>
 
-                      {link.submenu && (
-                        <span
-                          className=" flex items-center"
-                          onClick={() => {
-                            setCurrent(link);
-                            setPrev(currentLink);
-                          }}
-                        >
-                          <ion-icon name="chevron-forward-outline" />
-                        </span>
-                      )}
-                      {!link.submenu && (
-                        <a href={link.link}>
+                        {link.submenu && (
+                          <span className=" flex items-center">
+                            <ion-icon name="chevron-forward-outline" />
+                          </span>
+                        )}
+                        {!link.submenu && (
                           <span className="text-xl flex items-center">
                             <ion-icon name="chevron-forward-outline" />
                           </span>
-                        </a>
-                      )}
-                    </div>
+                        )}
+                      </div>
+                    </a>
                   ))}
               </div>
             </div>
